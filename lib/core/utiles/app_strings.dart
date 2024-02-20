@@ -1,6 +1,6 @@
-class APpString {
+class AppString {
   static const String appName = "UpTodo";
-  static const String skip = "skip";
+  static const String skip = "SKIP";
   static const String next = "Next";
   static const String back = "Back";
   static const String getStarted = "Get Started";
@@ -12,7 +12,7 @@ class APpString {
       "In Uptodo  you can create your personalized routine to stay productive";
   static const String onBoardingTitleThree = "Organaize your tasks";
   static const String onBoardingSubTitleThree =
-      "You can organize your daily tasks by adding your tasks into separate categories";
+      "You can organize your daily /n tasks by adding your tasks into separate categories";
 
   static const String today = "Today";
   static const String noTask = "What do you want to do today?";
