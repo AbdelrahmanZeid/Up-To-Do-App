@@ -32,4 +32,5 @@ class AppString {
   static const String cancel = "CANCEL";
   static const String toDo = "TODO";
   static const String completed = "COMPLETED";
+  static const String onBoardingKey =  "onBoarding";
 }

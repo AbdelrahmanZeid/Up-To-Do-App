@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:notes_app/core/database/cache_helper.dart';
+import 'package:notes_app/core/services/service_locator.dart';
 import 'package:notes_app/core/utiles/app_assets.dart';
 import 'package:notes_app/core/utiles/app_color.dart';
 import 'package:notes_app/core/utiles/app_strings.dart';
 import 'package:notes_app/features/auth/presentation/views/on_boarding_view.dart';
+import 'package:notes_app/features/home/presentation/views/home_view.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -14,19 +17,23 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView> {
   void delayedNavigate() {
-    Future.delayed(
-      const Duration(
-        seconds: 3,
-      ),
-      () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => const OnBoardingView(),
-          ),
-        );
-      },
-    );
+    bool isVisted = getIt<CacheHelper>().getData(
+      key: AppString.onBoardingKey,
+    )??false;
+     Future.delayed(
+            const Duration(
+              seconds: 3,
+            ),
+            () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) =>isVisted? HomeView():const OnBoardingView(),
+                ),
+              );
+            },
+          );
+       
   }
 
   @override
@@ -37,7 +44,6 @@ class _SplashViewState extends State<SplashView> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.backGround,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

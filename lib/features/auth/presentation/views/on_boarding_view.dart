@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/core/utiles/app_color.dart';
 import 'package:notes_app/features/auth/data/models/on_boarding_model.dart';
 import 'package:notes_app/features/auth/presentation/widgets/back_next_buttons.dart';
 import 'package:notes_app/features/auth/presentation/widgets/page_view_item.dart';
@@ -17,7 +16,6 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.backGround,
       body: SafeArea(
         child: Column(
           children: [
