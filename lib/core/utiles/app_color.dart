@@ -13,6 +13,9 @@ class AppColor {
   static const Color red = Color(
     0xffff4666,
   );
+  static const Color deepRed = Color(
+    0xffE57373,
+  );
   static const Color green = Color(
     0xff66cc41,
   );

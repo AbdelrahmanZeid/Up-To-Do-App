@@ -5,6 +5,7 @@ import 'package:notes_app/core/database/cache_helper.dart';
 import 'package:notes_app/core/services/service_locator.dart';
 import 'package:notes_app/core/utiles/app_color.dart';
 import 'package:notes_app/core/utiles/app_strings.dart';
+import 'package:notes_app/core/widgets/custom_elevated_button.dart';
 import 'package:notes_app/features/home/presentation/views/home_view.dart';
 
 class BackNextButtons extends StatelessWidget {
@@ -38,19 +39,8 @@ class BackNextButtons extends StatelessWidget {
         const Spacer(
           flex: 8,
         ),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            minimumSize: const Size(
-              90,
-              48,
-            ),
-            backgroundColor: AppColor.primary,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                4,
-              ),
-            ),
-          ),
+        CustomElevatedButton(
+          color: AppColor.primary,
           onPressed: () {
             getIt<CacheHelper>()
                 .saveData(
@@ -85,16 +75,12 @@ class BackNextButtons extends StatelessWidget {
               },
             );
           },
-          child: Text(
-            AppString.getStarted,
-            style: GoogleFonts.lato(
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-              color: AppColor.white,
-            ),
-          ),
+          text: AppString.getStarted,
+          fontSize: 16,
+          btnWidth: 90,
+          btnHeight: 48,
         ),
-        Spacer(),
+        const Spacer(),
       ],
     );
   }
