@@ -37,4 +37,7 @@ class AppColor {
   static const Color deepGrey = Color(
     0xff424242,
   );
+  static const Color black = Color(
+    0xff1D1D1D,
+  );
 }

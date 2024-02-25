@@ -2,10 +2,10 @@ import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:notes_app/core/utiles/app_assets.dart';
 import 'package:notes_app/core/utiles/app_color.dart';
 import 'package:notes_app/core/utiles/app_strings.dart';
-import 'package:notes_app/core/widgets/custom_elevated_button.dart';
+import 'package:notes_app/features/home/presentation/widgets/model_bottom_sheet_item.dart';
+import 'package:notes_app/features/task/presentation/views/add_task_view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -14,7 +14,16 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) {
+                return const AddTaskView();
+              },
+            ),
+          );
+        },
         backgroundColor: AppColor.primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(
@@ -35,9 +44,6 @@ class HomeView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // const SizedBox(
-              //   height: 12,
-              // ),
               Text(
                 DateFormat.yMMMMd().format(
                   DateTime.now(),
@@ -95,32 +101,6 @@ class HomeView extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class NoTaskWidget extends StatelessWidget {
-  const NoTaskWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Image.asset(
-          AppAssets.noTask,
-        ),
-        Text(
-          AppString.noTask,
-          style: GoogleFonts.lato(fontSize: 24, color: AppColor.white),
-        ),
-        Text(
-          AppString.noTask2,
-          style: GoogleFonts.lato(
-            fontSize: 16,
-            color: AppColor.white,
-          ),
-        ),
-      ],
     );
   }
 }
@@ -216,47 +196,6 @@ class TaskWidget extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class ModelBottomSheetItem extends StatelessWidget {
-  const ModelBottomSheetItem({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 250,
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        color: AppColor.deepGrey,
-      ),
-      child: Column(
-        children: [
-          const Spacer(),
-          CustomElevatedButton(
-            color: AppColor.primary,
-            onPressed: () {},
-            text: AppString.taskCompleted,
-            fontSize: 16, btnWidth: 327, btnHeight: 48,
-          ),
-          const Spacer(),
-          CustomElevatedButton(
-            color: AppColor.deepRed,
-            onPressed: () {},
-            text: AppString.deleteTask,
-            fontSize: 16,btnWidth: 327, btnHeight: 48,
-          ),
-          const Spacer(),
-          CustomElevatedButton(
-            color: AppColor.primary,
-            onPressed: () {},
-            text: AppString.cancel,
-            fontSize: 16,btnWidth: 327, btnHeight: 48,
-          ),
-          const Spacer(),
-        ],
       ),
     );
   }
