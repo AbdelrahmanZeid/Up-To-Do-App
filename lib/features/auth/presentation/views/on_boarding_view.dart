@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:notes_app/features/auth/data/models/on_boarding_model.dart';
 import 'package:notes_app/features/auth/presentation/widgets/back_next_buttons.dart';
 import 'package:notes_app/features/auth/presentation/widgets/page_view_item.dart';
@@ -20,7 +21,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
         child: Column(
           children: [
             SizedBox(
-              height: 730,
+              height: 730.h,
               child: PageView.builder(
                 controller: controller,
                 itemBuilder: (

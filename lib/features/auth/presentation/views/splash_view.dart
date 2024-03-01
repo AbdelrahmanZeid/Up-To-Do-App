@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:notes_app/core/database/cache_helper.dart';
 import 'package:notes_app/core/services/service_locator.dart';
 import 'package:notes_app/core/utiles/app_assets.dart';
 import 'package:notes_app/core/utiles/app_color.dart';
 import 'package:notes_app/core/utiles/app_strings.dart';
+import 'package:notes_app/core/utiles/app_text_style.dart';
 import 'package:notes_app/features/auth/presentation/views/on_boarding_view.dart';
 import 'package:notes_app/features/home/presentation/views/home_view.dart';
 
@@ -18,22 +19,22 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   void delayedNavigate() {
     bool isVisted = getIt<CacheHelper>().getData(
-      key: AppString.onBoardingKey,
-    )??false;
-     Future.delayed(
-            const Duration(
-              seconds: 3,
-            ),
-            () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) =>isVisted? HomeView():const OnBoardingView(),
-                ),
-              );
-            },
-          );
-       
+          key: AppString.onBoardingKey,
+        ) ??
+        false;
+    Future.delayed(
+      const Duration(
+        seconds: 3,
+      ),
+      () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => isVisted ?const HomeView() : const OnBoardingView(),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -52,15 +53,15 @@ class _SplashViewState extends State<SplashView> {
               AppAssets.logo,
             ),
           ),
-          const SizedBox(
-            height: 18,
+          SizedBox(
+            height: 18.h,
           ),
           Text(
             AppString.appName,
-            style: GoogleFonts.lato(
-              color: AppColor.white,
-              fontSize: 40,
-              fontWeight: FontWeight.w700,
+            style: AppTextStyle.latoTextStyle(
+              40,
+              FontWeight.w700,
+              AppColor.white,
             ),
           ),
         ],

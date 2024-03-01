@@ -1,10 +1,14 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:notes_app/core/utiles/app_color.dart';
 import 'package:notes_app/core/utiles/app_strings.dart';
-import 'package:notes_app/features/home/presentation/widgets/model_bottom_sheet_item.dart';
+import 'package:notes_app/features/home/presentation/widgets/no_task_widget.dart';
+import 'package:notes_app/features/home/presentation/widgets/task_widget.dart';
+import 'package:notes_app/features/task/presentation/cubits/add_task_cubit.dart';
+import 'package:notes_app/features/task/presentation/cubits/add_task_states.dart';
 import 'package:notes_app/features/task/presentation/views/add_task_view.dart';
 
 class HomeView extends StatelessWidget {
@@ -41,160 +45,81 @@ class HomeView extends StatelessWidget {
           padding: const EdgeInsets.all(
             24,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                DateFormat.yMMMMd().format(
-                  DateTime.now(),
-                ),
-                style: const TextStyle(
-                  color: AppColor.white,
-                  fontSize: 32,
-                ),
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              const Text(
-                AppString.today,
-                style: TextStyle(
-                  color: AppColor.white,
-                  fontSize: 28,
-                ),
-              ),
-              SizedBox(
-                height: 100,
-                child: DatePicker(
-                  DateTime.now(),
-                  initialSelectedDate: DateTime.now(),
-                  selectionColor: AppColor.primary,
-                  selectedTextColor: Colors.white,
-                  dateTextStyle: const TextStyle(
-                    color: AppColor.white,
-                    fontSize: 16,
-                  ),
-                  dayTextStyle: const TextStyle(
-                    color: AppColor.white,
-                    fontSize: 16,
-                  ),
-                  monthTextStyle: const TextStyle(
-                    color: AppColor.white,
-                    fontSize: 16,
-                  ),
-                  onDateChange: (date) {
-                    // New date selected
-                    // setState(() {
-                    //   _selectedValue = date;
-                    // });
-                  },
-                ),
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-
-              //  const NoTaskWidget(),
-              TaskWidget(),
-              //  TaskWidget(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class TaskWidget extends StatelessWidget {
-  const TaskWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        showModalBottomSheet(
-            context: context,
-            builder: (_) {
-              return const ModelBottomSheetItem();
-            });
-      },
-      child: Container(
-        margin: const EdgeInsets.only(
-          bottom: 24,
-        ),
-        padding: const EdgeInsets.all(
-          8,
-        ),
-        width: double.infinity,
-        height: 135,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(
-            16,
-          ),
-          color: AppColor.red,
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+          child: BlocBuilder<AddTaskCubit, AddTaskStates>(
+            builder: (context, state) {
+              return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Task 1",
-                    style: GoogleFonts.lato(
+                    DateFormat.yMMMMd().format(
+                      DateTime.now(),
+                    ),
+                    style: TextStyle(
                       color: AppColor.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 32.sp,
                     ),
                   ),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.timer,
-                        color: AppColor.white,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "09:33 PM - 09:48 PM",
-                        style: GoogleFonts.lato(
-                          color: AppColor.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
+                  SizedBox(
+                    height: 12.h,
                   ),
                   Text(
-                    "Learn Dart",
-                    style: GoogleFonts.lato(
+                    AppString.today,
+                    style: TextStyle(
                       color: AppColor.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w400,
+                      fontSize: 28.sp,
                     ),
                   ),
+                  SizedBox(
+                    height: 100.h,
+                    child: DatePicker(
+                      DateTime.now(),
+                      initialSelectedDate: DateTime.now(),
+                      selectionColor: AppColor.primary,
+                      selectedTextColor: Colors.white,
+                      dateTextStyle: TextStyle(
+                        color: AppColor.white,
+                        fontSize: 16.sp,
+                      ),
+                      dayTextStyle: TextStyle(
+                        color: AppColor.white,
+                        fontSize: 16.sp,
+                      ),
+                      monthTextStyle: TextStyle(
+                        color: AppColor.white,
+                        fontSize: 16.sp,
+                      ),
+                      onDateChange: (date) {
+                        // New date selected
+                        // setState(() {
+                        //   _selectedValue = date;
+                        // });
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 24.h,
+                  ),
+                  context.read<AddTaskCubit>().addTaskModelList.isEmpty
+                      ? const NoTaskWidget()
+                      : Expanded(
+                          child: ListView.builder(
+                            itemCount: context
+                                .read<AddTaskCubit>()
+                                .addTaskModelList
+                                .length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return TaskWidget(
+                                addTaskModel: context
+                                    .read<AddTaskCubit>()
+                                    .addTaskModelList[index],
+                              );
+                            },
+                          ),
+                        ),
                 ],
-              ),
-            ),
-            Container(
-              width: 1,
-              height: 80,
-              color: AppColor.white,
-            ),
-            RotatedBox(
-              quarterTurns: 3,
-              child: Text(
-                AppString.toDo,
-                style: GoogleFonts.lato(
-                  color: AppColor.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-          ],
+              );
+            },
+          ),
         ),
       ),
     );

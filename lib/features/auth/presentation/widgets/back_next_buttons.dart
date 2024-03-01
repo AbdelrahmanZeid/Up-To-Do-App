@@ -1,10 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:notes_app/core/database/cache_helper.dart';
 import 'package:notes_app/core/services/service_locator.dart';
 import 'package:notes_app/core/utiles/app_color.dart';
 import 'package:notes_app/core/utiles/app_strings.dart';
+import 'package:notes_app/core/utiles/app_text_style.dart';
 import 'package:notes_app/core/widgets/custom_elevated_button.dart';
 import 'package:notes_app/features/home/presentation/views/home_view.dart';
 
@@ -27,10 +28,10 @@ class BackNextButtons extends StatelessWidget {
           },
           child: Text(
             AppString.back,
-            style: GoogleFonts.lato(
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-              color: AppColor.white.withOpacity(
+            style: AppTextStyle.latoTextStyle(
+              16,
+              FontWeight.w400,
+              AppColor.white.withOpacity(
                 .5,
               ),
             ),
@@ -76,9 +77,9 @@ class BackNextButtons extends StatelessWidget {
             );
           },
           text: AppString.getStarted,
-          fontSize: 16,
-          btnWidth: 90,
-          btnHeight: 48,
+          fontSize: 16.sp,
+          btnWidth: 90.w,
+          btnHeight: 48.h,
         ),
         const Spacer(),
       ],
