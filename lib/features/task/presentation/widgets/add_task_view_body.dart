@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +6,7 @@ import 'package:notes_app/core/utiles/app_color.dart';
 import 'package:notes_app/core/utiles/app_strings.dart';
 import 'package:notes_app/core/utiles/app_text_style.dart';
 import 'package:notes_app/core/widgets/custom_elevated_button.dart';
+import 'package:notes_app/features/task/data/add_task_model.dart';
 import 'package:notes_app/features/task/presentation/cubits/add_task_cubit.dart';
 import 'package:notes_app/features/task/presentation/cubits/add_task_states.dart';
 import 'package:notes_app/features/task/presentation/widgets/start_end_time_widget.dart';
@@ -16,10 +16,10 @@ class AddTaskViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AddTaskCubit, AddTaskStates>(
+    return BlocConsumer<AddTaskCubit, AddTaskStates>(
       builder: (context, state) {
         return Form(
-          key:context.read<AddTaskCubit>().formKey ,
+          key: context.read<AddTaskCubit>().formKey,
           child: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.symmetric(
@@ -41,6 +41,15 @@ class AddTaskViewBody extends StatelessWidget {
                     height: 10.h,
                   ),
                   TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "please Enter value";
+                      } else {
+                        return null;
+                      }
+                    },
+                    style: AppTextStyle.latoTextStyle(
+                        14, FontWeight.w400, AppColor.white),
                     controller: context.read<AddTaskCubit>().titleController,
                     decoration: const InputDecoration(
                       hintText: AppString.titleHint,
@@ -61,6 +70,18 @@ class AddTaskViewBody extends StatelessWidget {
                     height: 10.h,
                   ),
                   TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "please Enter value";
+                      } else {
+                        return null;
+                      }
+                    },
+                    style: AppTextStyle.latoTextStyle(
+                      14,
+                      FontWeight.w400,
+                      AppColor.white,
+                    ),
                     controller: context.read<AddTaskCubit>().noteController,
                     decoration: const InputDecoration(
                       hintText: AppString.noteHint,
@@ -165,21 +186,73 @@ class AddTaskViewBody extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 125.h,
+                    height: 120.h,
                   ),
-                  CustomElevatedButton(
-                    color: AppColor.primary,
-                    onPressed: () {},
-                    text: AppString.createTask,
-                    fontSize: 16,
-                    btnWidth: double.infinity,
-                    btnHeight: 60,
-                  ),
+                  state is InsertTaskLoadingState
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: AppColor.primary,
+                          ),
+                        )
+                      : CustomElevatedButton(
+                          color: AppColor.primary,
+                          onPressed: () {
+                            if (context
+                                .read<AddTaskCubit>()
+                                .formKey
+                                .currentState!
+                                .validate()) {
+                              context.read<AddTaskCubit>().insertTask(
+                                    AddTaskModel(
+                                      startTime: context
+                                          .read<AddTaskCubit>()
+                                          .currentTime,
+                                      date: context
+                                          .read<AddTaskCubit>()
+                                          .currentDate
+                                          .toString(),
+                                      isCompleted: false,
+                                      endTime: context
+                                          .read<AddTaskCubit>()
+                                          .currentEndTime,
+                                      id: 1,
+                                      note: context
+                                          .read<AddTaskCubit>()
+                                          .noteController
+                                          .text,
+                                      title: context
+                                          .read<AddTaskCubit>()
+                                          .titleController
+                                          .text,
+                                      color: context
+                                          .read<AddTaskCubit>()
+                                          .currentIndex,
+                                    ),
+                                  );
+                            }
+                            context.read<AddTaskCubit>().noteController.clear();
+                            context
+                                .read<AddTaskCubit>()
+                                .titleController
+                                .clear();
+                          },
+                          text: AppString.createTask,
+                          fontSize: 16,
+                          btnWidth: double.infinity,
+                          btnHeight: 60,
+                        ),
                 ],
               ),
             ),
           ),
         );
+      },
+      listener: (BuildContext context, AddTaskStates state) {
+        if (state is InsertTaskSuccessState) {
+          Navigator.pop(
+            context,
+          );
+        } else {}
       },
     );
   }

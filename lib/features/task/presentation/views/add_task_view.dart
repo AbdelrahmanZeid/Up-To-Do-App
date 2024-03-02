@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:notes_app/core/utiles/app_color.dart';
 import 'package:notes_app/core/utiles/app_strings.dart';
 import 'package:notes_app/core/utiles/app_text_style.dart';
-import 'package:notes_app/features/task/presentation/cubits/add_task_cubit.dart';
 import 'package:notes_app/features/task/presentation/widgets/add_task_view_body.dart';
 
 class AddTaskView extends StatelessWidget {
@@ -34,12 +32,9 @@ class AddTaskView extends StatelessWidget {
           ),
         ),
       ),
-      body: BlocProvider(
-        create: (BuildContext context) {
-          return AddTaskCubit();
-        },
-        child: const AddTaskViewBody(),
-      ),
+      body:
+         const AddTaskViewBody(),
+      
     );
   }
 }

@@ -18,28 +18,30 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 730.h,
-              child: PageView.builder(
-                controller: controller,
-                itemBuilder: (
-                  context,
-                  index,
-                ) {
-                  return PageViewItem(
-                    onBoardingModel: onBoardingItemList[index],
-                    controller: controller,
-                  );
-                },
-                itemCount: onBoardingItemList.length,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 700.h,
+                child: PageView.builder(
+                  controller: controller,
+                  itemBuilder: (
+                    context,
+                    index,
+                  ) {
+                    return PageViewItem(
+                      onBoardingModel: onBoardingItemList[index],
+                      controller: controller,
+                    );
+                  },
+                  itemCount: onBoardingItemList.length,
+                ),
               ),
-            ),
-            BackNextButtons(
-              controller: controller,
-            ),
-          ],
+              BackNextButtons(
+                controller: controller,
+              ),
+            ],
+          ),
         ),
       ),
     );

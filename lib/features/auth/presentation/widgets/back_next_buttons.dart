@@ -57,7 +57,7 @@ class BackNextButtons extends StatelessWidget {
                     "app created",
                   );
                 }
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (

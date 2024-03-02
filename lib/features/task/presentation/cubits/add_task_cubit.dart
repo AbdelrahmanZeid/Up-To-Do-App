@@ -14,7 +14,7 @@ class AddTaskCubit extends Cubit<AddTaskStates> {
   TextEditingController titleController = TextEditingController();
 
   TextEditingController noteController = TextEditingController();
-  GlobalKey<FormState> formKey=GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   DateTime currentDate = DateTime.now();
 
   int currentIndex = 0;
@@ -136,39 +136,61 @@ class AddTaskCubit extends Cubit<AddTaskStates> {
     );
   }
 
+  List<AddTaskModel> addTaskModelList = [
+    // AddTaskModel(
+    //   id: 1,
+    //   note: "learn dart",
+    //   title: "study dart for 24 hour",
+    //   color: 3,
+    //   startTime: '09:33 PM',
+    //   endTime: '09:48 PM',
+    //   isCompleted: true,
+    //   date: '8/6/2023',
+    // ),
+    // AddTaskModel(
+    //   id: 3,
+    //   note: "flutter",
+    //   title: "study flutter for 24 hour",
+    //   color: 4,
+    //   startTime: '09:33 PM',
+    //   endTime: '09:48 PM',
+    //   isCompleted: false,
+    //   date: '10/6/2023',
+    // ),
+    // AddTaskModel(
+    //   id: 2,
+    //   note: "learn java",
+    //   title: "study java for 24 hour",
+    //   color: 2,
+    //   startTime: '09:33 PM',
+    //   endTime: '09:48 PM',
+    //   isCompleted: false,
+    //   date: '8/10/2023',
+    // ),
+  ];
 
-  
-List<AddTaskModel> addTaskModelList = [
-  AddTaskModel(
-    id: 1,
-    note: "learn dart",
-    title: "study dart for 24 hour",
-    color: 3,
-    startTime: '09:33 PM',
-    endTime: '09:48 PM',
-    isCompleted: true,
-    date: '8/6/2023',
-  ),
-  AddTaskModel(
-    id: 3,
-    note: "flutter",
-    title: "study flutter for 24 hour",
-    color: 4,
-    startTime: '09:33 PM',
-    endTime: '09:48 PM',
-    isCompleted: false,
-    date: '10/6/2023',
-  ),
-  AddTaskModel(
-    id: 2,
-    note: "learn java",
-    title: "study java for 24 hour",
-    color: 2,
-    startTime: '09:33 PM',
-    endTime: '09:48 PM',
-    isCompleted: false,
-    date: '8/10/2023',
-  ),
-];
-
+  void insertTask(AddTaskModel task) async {
+    try {
+      await Future.delayed(
+        const Duration(
+          seconds: 3,
+        ),
+      );
+      emit(
+        InsertTaskLoadingState(),
+      );
+      addTaskModelList.add(
+        task,
+      );
+      emit(
+        InsertTaskSuccessState(),
+      );
+    } catch (e) {
+      emit(
+        InsertTaskFailuerState(
+          errMessage: e.toString(),
+        ),
+      );
+    }
+  }
 }
