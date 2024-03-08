@@ -44,6 +44,7 @@ dependencies:
   flutter_screenutil: ^5.9.0
   flutter_bloc: ^8.1.4
   fluttertoast: ^8.2.4
+  sqflite: ^2.3.2
 
 dev_dependencies:
   flutter_test:

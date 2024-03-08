@@ -33,4 +33,7 @@ class AppString {
   static const String toDo = "TODO";
   static const String completed = "COMPLETED";
   static const String onBoardingKey =  "onBoarding";
+  static const String addedSuccessfully =  "AddedSuccessfully";
+  static const String dataBaseName =  "tasks.db";
+  static const String tableName =  "Tasks";
 }

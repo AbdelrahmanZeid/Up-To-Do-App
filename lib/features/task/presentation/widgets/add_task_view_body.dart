@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:notes_app/core/utiles/app_color.dart';
+import 'package:notes_app/core/utiles/app_functions.dart';
 import 'package:notes_app/core/utiles/app_strings.dart';
 import 'package:notes_app/core/utiles/app_text_style.dart';
 import 'package:notes_app/core/widgets/custom_elevated_button.dart';
@@ -249,6 +250,10 @@ class AddTaskViewBody extends StatelessWidget {
       },
       listener: (BuildContext context, AddTaskStates state) {
         if (state is InsertTaskSuccessState) {
+          showToast(
+            message: AppString.addedSuccessfully,
+            states: ToastStates.success,
+          );
           Navigator.pop(
             context,
           );

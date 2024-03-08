@@ -4,6 +4,7 @@ import 'package:notes_app/core/utiles/app_color.dart';
 import 'package:notes_app/core/utiles/app_strings.dart';
 import 'package:notes_app/core/utiles/app_text_style.dart';
 import 'package:notes_app/features/auth/data/models/on_boarding_model.dart';
+import 'package:notes_app/features/home/presentation/views/home_view.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class PageViewItem extends StatelessWidget {
@@ -19,7 +20,16 @@ class PageViewItem extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (_) {
+                    return const HomeView();
+                  },
+                ),
+              );
+            },
             child: Text(
               AppString.skip,
               style: AppTextStyle.latoTextStyle(
@@ -72,10 +82,10 @@ class PageViewItem extends StatelessWidget {
             onBoardingModel.subTitle,
             textAlign: TextAlign.center,
             style: AppTextStyle.latoTextStyle(
-           16,
-            FontWeight.w400,
-            AppColor.white,
-          ),
+              16,
+              FontWeight.w400,
+              AppColor.white,
+            ),
           ),
         ),
       ],
