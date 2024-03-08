@@ -114,7 +114,7 @@ class TaskWidget extends StatelessWidget {
             RotatedBox(
               quarterTurns: 3,
               child: Text(
-                addTaskModel.isCompleted ? AppString.completed : AppString.toDo,
+                addTaskModel.isCompleted ==1 ? AppString.completed : AppString.toDo,
                 style: AppTextStyle.latoTextStyle(
                   17,
                   FontWeight.w600,

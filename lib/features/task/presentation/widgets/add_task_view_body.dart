@@ -7,7 +7,6 @@ import 'package:notes_app/core/utiles/app_functions.dart';
 import 'package:notes_app/core/utiles/app_strings.dart';
 import 'package:notes_app/core/utiles/app_text_style.dart';
 import 'package:notes_app/core/widgets/custom_elevated_button.dart';
-import 'package:notes_app/features/task/data/add_task_model.dart';
 import 'package:notes_app/features/task/presentation/cubits/add_task_cubit.dart';
 import 'package:notes_app/features/task/presentation/cubits/add_task_states.dart';
 import 'package:notes_app/features/task/presentation/widgets/start_end_time_widget.dart';
@@ -203,33 +202,7 @@ class AddTaskViewBody extends StatelessWidget {
                                 .formKey
                                 .currentState!
                                 .validate()) {
-                              context.read<AddTaskCubit>().insertTask(
-                                    AddTaskModel(
-                                      startTime: context
-                                          .read<AddTaskCubit>()
-                                          .currentTime,
-                                      date: context
-                                          .read<AddTaskCubit>()
-                                          .currentDate
-                                          .toString(),
-                                      isCompleted: false,
-                                      endTime: context
-                                          .read<AddTaskCubit>()
-                                          .currentEndTime,
-                                      id: 1,
-                                      note: context
-                                          .read<AddTaskCubit>()
-                                          .noteController
-                                          .text,
-                                      title: context
-                                          .read<AddTaskCubit>()
-                                          .titleController
-                                          .text,
-                                      color: context
-                                          .read<AddTaskCubit>()
-                                          .currentIndex,
-                                    ),
-                                  );
+                              context.read<AddTaskCubit>().insertTask();
                             }
                             context.read<AddTaskCubit>().noteController.clear();
                             context

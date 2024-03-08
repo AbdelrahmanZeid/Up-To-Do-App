@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:notes_app/core/services/service_locator.dart';
+import 'package:notes_app/core/sqflite_helper/sqflite_helper.dart';
 import 'package:notes_app/core/utiles/app_color.dart';
 import 'package:notes_app/features/task/data/add_task_model.dart';
 import 'package:notes_app/features/task/presentation/cubits/add_task_states.dart';
@@ -169,19 +171,24 @@ class AddTaskCubit extends Cubit<AddTaskStates> {
     // ),
   ];
 
-  void insertTask(AddTaskModel task) async {
+  void insertTask() async {
     try {
-      await Future.delayed(
-        const Duration(
-          seconds: 3,
-        ),
-      );
       emit(
         InsertTaskLoadingState(),
       );
-      addTaskModelList.add(
-        task,
+      getIt<SqfliteHelper>().insertToDB(
+        AddTaskModel(
+          color: currentIndex,
+          startTime: currentTime,
+          date: currentDate.toString(),
+          isCompleted: 0,
+          endTime: currentEndTime,
+          note: noteController.text,
+          title: titleController.text,
+        ),
       );
+      noteController.clear();
+      titleController.clear();
       emit(
         InsertTaskSuccessState(),
       );
